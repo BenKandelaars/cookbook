@@ -6,7 +6,9 @@ import { addRecipeToDoc } from './lib/addRecipeToDoc.js'
 
 let recipe = {
   header: 'Carrot soup',
-  ingredients: ['hello lorum', 'world', 'second ', 'third'].join(', ')
+  reference: ['Delia p.25', 'Cooking outside the box p.64'],
+  // reference: ['x x x x x x x x'],
+  ingredients: ['carrots', 'parsnips']
 }
 
 // TODO: split config into separate page
@@ -16,7 +18,8 @@ export const docCfg = {
 }
 
 export const extraDocCfg = {
-  columns: 2 // TODO: this is really config
+  columns: 2, // TODO: this is really config
+  columnGap: 10
 }
 
 export const contentCfg = {
@@ -28,6 +31,10 @@ export const contentCfg = {
     font: 'Helvetica',
     fontSize: 18
   },
+  reference: {
+    font: 'Helvetica',
+    fontSize: 14
+  },
   ingredients: {
     font: 'Helvetica',
     fontSize: 14
@@ -37,7 +44,7 @@ export const contentCfg = {
 const doc = new PDFDocument(docCfg)
 doc.pipe(createWriteStream('pdf/pdfkit.pdf'))
 
-const pageMeta = getPageMeta(doc, docCfg)
+export const pageMeta = getPageMeta(doc, docCfg)
 recipe = addMetadata(doc, recipe)
 
 console.log(recipe)
