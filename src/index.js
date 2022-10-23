@@ -3,6 +3,10 @@ import PDFDocument from 'pdfkit'
 import { createWriteStream } from 'fs'
 import { addMetadata, getPageMeta } from './lib/metadata.js'
 import { addRecipeToDoc } from './lib/addRecipeToDoc.js'
+import path from 'path'
+
+const savePath = 'pdf'
+const fileName = 'yummyFood'
 
 let recipe = {
   header: 'Carrot soup',
@@ -42,7 +46,7 @@ export const contentCfg = {
 }
 
 const doc = new PDFDocument(docCfg)
-doc.pipe(createWriteStream('pdf/pdfkit.pdf'))
+doc.pipe(createWriteStream(path.resolve(savePath, `${fileName}.pdf`)))
 
 export const pageMeta = getPageMeta(doc, docCfg)
 recipe = addMetadata(doc, recipe)
